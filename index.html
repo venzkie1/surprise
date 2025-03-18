@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dancing Text Animation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-color: #121212;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+        .text {
+            font-size: 5rem;
+            font-weight: bold;
+            display: flex;
+        }
+        .letter {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="text" id="text">PAULO BAYOT PISOT</div>
+
+    <script>
+        const textElement = document.getElementById("text");
+        const text = textElement.innerText;
+        textElement.innerHTML = text
+            .split("")
+            .map((char, i) => `<span class="letter" style="color: ${i % 2 === 0 ? '#FF4081' : '#4CAF50'}">${char}</span>`)
+            .join("");
+
+        anime.timeline({ loop: true })
+            .add({
+                targets: ".letter",
+                translateY: [-20, 0],
+                scale: [0.8, 1.2],
+                opacity: [0, 1],
+                easing: "easeOutElastic(1, .8)",
+                delay: anime.stagger(100),
+                duration: 1500
+            })
+            .add({
+                targets: ".letter",
+                opacity: [1, 0],
+                easing: "easeInOutQuad",
+                delay: anime.stagger(100),
+                duration: 1000
+            });
+    </script>
+</body>
+</html>
